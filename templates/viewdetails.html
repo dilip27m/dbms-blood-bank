@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ...existing code... -->
+    <style>
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar button {
+            margin: 5px 0;
+            width: 170px;
+        }
+        .content {
+            margin-left: 200px; /* Adjust as needed */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+    <script>
+        function loadTotalPersons() {
+            fetch('/total-persons')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('content').innerHTML = data;
+                });
+        }
+        function loadDonors() {
+            fetch('/donors')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('content').innerHTML = data;
+                });
+        }
+        function loadRecipients() {
+            fetch('/recipients')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('content').innerHTML = data;
+                });
+        }
+        function loadStorage() {
+            fetch('/storage')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('content').innerHTML = data;
+                });
+        }
+    </script>
+</head>
+<body>
+    <!-- ...existing code... -->
+    <div class="sidebar">
+        <button onclick="loadTotalPersons()">Total Persons</button>
+        <button onclick="location.href='/branch-details'">Branch Details</button>
+        <button onclick="loadDonors()">Donors</button>
+        <button onclick="loadRecipients()">Recipients</button>
+    </div>
+    <div id="content" class="content">
+        <!-- Content will be loaded here -->
+    </div>
+    <!-- ...existing code... -->
+</body>
+</html>

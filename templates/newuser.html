@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f8f9fa;
+        }
+
+        h1 {
+            color: #343a40;
+            margin-top: 50px;
+        }
+
+        form {
+            display: inline-block;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .home-button {
+            background-color: #6c757d;
+        }
+
+        .home-button:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <button class="home-button" onclick="location.href='/'">Home</button>
+
+    <h1>New User Registration</h1>
+    
+    <form action="/new-user" method="post">
+        <label for="aadhaar_number">Aadhaar Number:</label>
+        <input type="text" id="aadhaar_number" name="aadhaar_number" required>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="date_of_birth">Date of Birth:</label>
+        <input type="date" id="date_of_birth" name="date_of_birth" required oninput="calculateAge()">
+
+        <input type="hidden" id="age" name="age">
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+            <option value="O">Other</option>
+        </select>
+        <label for="contact_number">Contact Number:</label>
+        <input type="text" id="contact_number" name="contact_number" required>
+
+        <label for="blood_group">Blood Group:</label>
+        <select id="blood_group" name="blood_group" required>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+        </select>
+
+        <label for="d_no">Door Number:</label>
+        <input type="text" id="d_no" name="d_no">
+
+        <label for="street_name">Street Name:</label>
+        <input type="text" id="street_name" name="street_name">
+
+        <label for="street_no">Street Number:</label>
+        <input type="text" id="street_no" name="street_no">
+
+        <label for="apt_number">Apartment Number:</label>
+        <input type="text" id="apt_number" name="apt_number">
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city">
+
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state">
+
+        <input type="hidden" id="person_id" name="person_id" value="{{ person_id }}">
+        
+        <button type="submit">Submit</button>
+    </form>
+
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <script>
+                alert("{{ messages[0] }}");
+            </script>
+        {% endif %}
+    {% endwith %}
+
+    <script>
+        function calculateAge() {
+            const dob = document.getElementById('date_of_birth').value;
+            const dobDate = new Date(dob);
+            const diffMs = Date.now() - dobDate.getTime();
+            const ageDate = new Date(diffMs);
+            const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+            document.getElementById('age').value = age;
+        }
+    </script>
+</body>
+</html>
